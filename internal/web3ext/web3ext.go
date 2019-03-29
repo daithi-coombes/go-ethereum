@@ -32,6 +32,7 @@ var Modules = map[string]string{
 	"shh":        ShhJs,
 	"swarmfs":    SwarmfsJs,
 	"txpool":     TxpoolJs,
+	"les":        LESJs,
 }
 
 const ChequebookJs = `
@@ -444,6 +445,11 @@ web3._extend({
 			params: 2,
 			inputFormatter:[null, null],
 		}),
+		new web3._extend.Method({
+			name: 'freezeClient',
+			call: 'debug_freezeClient',
+			params: 1,
+		}),
 	],
 	properties: []
 });
@@ -756,6 +762,32 @@ web3._extend({
 		new web3._extend.Property({
 			name: 'selfDrops',
 			getter: 'account_selfDrops'
+		}),
+	]
+});
+`
+
+const LESJs = `
+web3._extend({
+	property: 'les',
+	methods: 
+	[
+		new web3._extend.Method({
+			name: 'clientInfo',
+			call: 'les_clientInfo',
+			params: 2
+		}),
+		new web3._extend.Method({
+			name: 'setClientParams',
+			call: 'les_setClientParams',
+			params: 3
+		}),
+	],
+	properties: 
+	[
+		new web3._extend.Property({
+			name: 'serverInfo',
+			getter: 'les_serverInfo'
 		}),
 	]
 });
